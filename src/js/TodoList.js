@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import '../css/style.css'
+import '../css/style.css';
+import TodoItem from './TodoItem';
 
 class TodoList extends Component {
     constructor(props){
@@ -8,6 +9,9 @@ class TodoList extends Component {
             inputValue: '',
             list: []
         }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleBtnClick = this.handleBtnClick.bind(this);
+        this.handleItemDelete = this.handleItemDelete.bind(this)
     }
     
     render(){
@@ -22,51 +26,53 @@ class TodoList extends Component {
                     //不建议用class
                         className = 'input'
                         value = {this.state.inputValue} 
-                        onChange = {this.handleInputChange.bind(this)}
+                        onChange = {this.handleInputChange}
                     />
-                    <button onClick = {this.handleBtnClick.bind(this)}>提交</button>
+                    <button onClick = {this.handleBtnClick}>提交</button>
                 </div>
                 <ul>
-                    {
-                       
-                        this.state.list.map((item,index) => {
-                            return (
-                                <li
-                                key={index} 
-                                onClick = {this.handleItemDelete.bind(this,index)}
-                                dangerouslySetInnerHTML = {{__html: item}} 
-                                >
-                          
-                                </li>
-                            )
-                        })
-                    }
+                    {this.getTodoItem()}
                 </ul>
             </Fragment>
-        )
+        );
+    }
+
+    getTodoItem(){
+        return this.state.list.map((item,index) => {
+            return (
+                <div>
+                    <TodoItem 
+                    key = {index}
+                    content ={item} 
+                    index = {index} 
+                    deleteItem = {this.handleItemDelete}
+                    /> 
+                </div>
+            )
+        });
     }
 
     handleInputChange(e){
-       // console.log(e.target.value);
-        this.setState({
-              inputValue: e.target.value
-        })
+       const value = e.target.value;
+        this.setState(() =>({
+            inputValue: value
+        }));
     }
 
     handleBtnClick(){
         this.setState({
            list: [...this.state.list, this.state.inputValue],
            inputValue: ''
-        })
+        });
     }
 
     handleItemDelete(index){
         //state 不允许改变任何state
-        const list = [...this.state.list];
-        list.splice(index,1);
-        this.setState({
-            list: list
-        })
+        this.setState((prevState) => {
+            const list = [...prevState.list];
+            list.splice(index,1);
+            return {list}
+        });
     }
 }
 
