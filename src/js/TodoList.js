@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
+import '../css/style.css'
 
 class TodoList extends Component {
     constructor(props){
         super(props);
         this.state = {
-            inputValue: 'helo',
+            inputValue: '',
             list: []
         }
     }
@@ -13,15 +14,31 @@ class TodoList extends Component {
         return (
             <Fragment>
                 <div>
-                    <input value = {this.state.inputValue} 
+                    <label htmlFor="InputArea"
+                    //扩大显示区域
+                    >输入内容</label>
+                    <input
+                        id = "InputArea"
+                    //不建议用class
+                        className = 'input'
+                        value = {this.state.inputValue} 
                         onChange = {this.handleInputChange.bind(this)}
                     />
                     <button onClick = {this.handleBtnClick.bind(this)}>提交</button>
                 </div>
                 <ul>
                     {
+                       
                         this.state.list.map((item,index) => {
-                            return <li key={index} onClick = {this.handleItemDelete.bind(this,index)}>{item}</li>
+                            return (
+                                <li
+                                key={index} 
+                                onClick = {this.handleItemDelete.bind(this,index)}
+                                dangerouslySetInnerHTML = {{__html: item}} 
+                                >
+                          
+                                </li>
+                            )
                         })
                     }
                 </ul>
@@ -30,7 +47,7 @@ class TodoList extends Component {
     }
 
     handleInputChange(e){
-        console.log(e.target.value);
+       // console.log(e.target.value);
         this.setState({
               inputValue: e.target.value
         })
@@ -44,7 +61,7 @@ class TodoList extends Component {
     }
 
     handleItemDelete(index){
-        //state 不允许改变任何原始值
+        //state 不允许改变任何state
         const list = [...this.state.list];
         list.splice(index,1);
         this.setState({

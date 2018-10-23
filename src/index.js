@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import TodoList from './component/TodoList';
+import './css/index.css';
+import TodoList from './js/TodoList';
 import * as serviceWorker from './serviceWorker';
 
 // ReactDOM.render(<SiderDemo />, document.getElementById('root'));
