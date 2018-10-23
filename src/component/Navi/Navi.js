@@ -1,7 +1,6 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import logo from '../logo.svg';
 import './Navi.css'
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -52,9 +51,6 @@ class SiderDemo extends Component {
                             />
                         </span>
                         <span style={{color:'#fff', paddingLeft:'2%', fontSize:'1.4em'}}>Information Management System</span>
-                        <span style={{color:'#fff', float:'right', paddingRight:'1%'}}>
-                            <img src={logo} className="App-logo" alt="logo" />
-                        </span>
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Breadcrumb style={{ margin: '12px 0' }}>
