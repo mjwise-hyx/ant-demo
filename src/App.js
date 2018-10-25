@@ -1,5 +1,5 @@
 import React, { Component ,Fragment} from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition ,TransitionGroup } from 'react-transition-group';
 import './css/App.css';
 
 class App extends Component {
@@ -9,35 +9,37 @@ class App extends Component {
         this.state = {
             list: []
         }
-        this.handleToggole = this.handleToggole.bind(this);
+        // this.handleToggole = this.handleToggole.bind(this);
+        this.handleAddItem = this.handleAddItem.bind(this);
     }
     
     render() {
         return (
             //Fragment占位
             <Fragment>
-                <CSSTransition
-                    in = {this.state.show}
-                    timeout = {500}
-                    classNames = 'fade'
-                    unmountOnExit
-                    onEntered={(el) => {el.style.color='blue'}}
-                    appear = {true}
-                >
-                    <div>
-                        hello, dell lee
-                    </div>
-                </CSSTransition>
-
+                <TransitionGroup>
                 {
-                    this.state.list.map((item) => {
+                    this.state.list.map((item,index) => {
                         return (
-                            <div>{item}</div>
+                            <CSSTransition
+                                in = {this.state.show}
+                                timeout = {500}
+                                classNames = 'fade'
+                                unmountOnExit
+                                onEntered={(el) => {el.style.color='blue'}}
+                                appear = {true}
+                                key ={index}
+                            >
+                            <div
+                              
+                            >{item}</div>
+                            </CSSTransition>
                         )
                     })
                 }
+                </TransitionGroup>
                 <button 
-                    onClick={this.handleToggole}
+                    onClick={this.handleAddItem}
                 >toggle</button>
             </Fragment>
         );
