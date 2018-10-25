@@ -1,5 +1,5 @@
 import React, { Component ,Fragment} from 'react';
-
+import { CSSTransition } from 'react-transition-group';
 import './css/App.css';
 
 class App extends Component {
@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            show: true
+            list: []
         }
         this.handleToggole = this.handleToggole.bind(this);
     }
@@ -16,14 +16,39 @@ class App extends Component {
         return (
             //Fragment占位
             <Fragment>
-                <div className = {this.state.show ? 'show' : 'hide'}>
-                    hello, dell lee
-                </div>
+                <CSSTransition
+                    in = {this.state.show}
+                    timeout = {500}
+                    classNames = 'fade'
+                    unmountOnExit
+                    onEntered={(el) => {el.style.color='blue'}}
+                    appear = {true}
+                >
+                    <div>
+                        hello, dell lee
+                    </div>
+                </CSSTransition>
+
+                {
+                    this.state.list.map((item) => {
+                        return (
+                            <div>{item}</div>
+                        )
+                    })
+                }
                 <button 
                     onClick={this.handleToggole}
                 >toggle</button>
             </Fragment>
         );
+    }
+
+    handleAddItem(){
+        this.setState((prevState)=>{
+            return {
+                list: [...prevState.list,'item']
+            }
+        })
     }
 
     handleToggole(){

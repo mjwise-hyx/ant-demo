@@ -1,26 +1,24 @@
-.show{
+.fade-enter, .fade-appear{
+    opacity: 0;
+}
+
+.fade-enter-active, .fade-appear-active{
     opacity: 1;
-    transition: all 1s ease-in;
+    transition: opacity 1s ease-in;
 }
 
-.hide{
-    animation: hide-item 2s ease-in forwards;
+.fade-enter-done{
+    opacity: 1;
+
 }
-/* forwords 保存最后一个显示帧 */
 
-@keyframes hide-item {
-    0% {
-        opacity: 1;
-        color: red;
-    }
-    50% {
-        opacity: 0.5;
-        color: green;
-    }
-
-    100% {
-        opacity: 0;
-        color: blue;
-    }
-
+.fade-exit{
+    opacity: 1;
+}
+.fade-exit-active {
+    opacity: 0;
+}
+.fade-exit-done{
+    opacity: 0;
+    transition: opacity 1s ease-in;
 }
