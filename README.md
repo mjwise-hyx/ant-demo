@@ -1,1 +1,1 @@
-![](./public/redux.jpg)
+![img](./public/redux.jpg)
