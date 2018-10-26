@@ -15,17 +15,20 @@ export default (state = defaultState,action) =>{
         newState.inputValue = action.value;
         return newState;
     }
+
     if (action.type === INIT_LIST_ACTION) {
         const newState = JSON.parse(JSON.stringify(state));
         newState.list = action.data;
         return newState;
     }
+
     if (action.type === ADD_TODO_ITEM){
         const newState = JSON.parse(JSON.stringify(state));
         newState.list.push(newState.inputValue);
         newState.inputValue = '';
         return newState;
     }
+    
     if(action.type === DELETE_TODO_ITEM){
         const newState = JSON.parse(JSON.stringify(state));
         newState.list.splice(action.index,1);
