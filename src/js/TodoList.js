@@ -1,27 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-class Todolist extends Component {
+//无状态组件:一个组件类中只有render函数
+const Todolist = (props) =>{
+    const { inputValue, changeInputValue, handleClick, handleDelete, list } = props;
 
-    render() {
-        return (
+    return (
+        <div>
             <div>
-                <div>
-                    <input type="text" value = {this.props.inputValue} onChange={this.props.changeInputValue.bind(this)}/>
-                    <button >提交</button>
-                </div>
-                <ul>
-                    <li>Dell</li>
-                </ul>
+                <input type="text" value = {inputValue} onChange={changeInputValue.bind(this)}/>
+                <button onClick = {handleClick.bind(this)}>提交</button>
             </div>
-        )
-    }
+            <ul>
+               {
+                    list.map((item,index) => {
+                    return <li onClick={ handleDelete } key = {index}>{item}</li>
+                })
+               }
+            </ul>
+        </div>
+    )
 }
 
 
 const mapStateToProps = (state) =>{
     return {
-        inputValue: state.inputValue
+        inputValue: state.inputValue,
+        list: state.list
     }
 }
 
@@ -29,14 +34,30 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) => {
     return {
         changeInputValue(e) {
-            console.log(e.target.value);
+            // console.log(e.target.value);
             const action = {
                 type: 'change_input_value',
                 value: e.target.value
+            }
+            dispatch(action);
+        },
+
+        handleClick(){
+            const action = {
+                type: 'add_item'
+            }
+            dispatch(action);
+        },
+
+        handleDelete(index){
+            const action = {
+                type: 'delete_item',
+                index: index
             }
             dispatch(action);
         }
     }
 }
 
+//connect内容返回容器组件
 export default connect(mapStateToProps, mapDispatchToProps)(Todolist);
